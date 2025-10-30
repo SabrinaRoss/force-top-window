@@ -1,4 +1,6 @@
 from pywinauto import Desktop
+import win32gui
+import win32con
 
 class OpenWindows:
     def __init__(self):
@@ -25,8 +27,28 @@ class OpenWindows:
             print("Dude, that is not a number, please do something value")
             
         if num is None:
+            print("Invalid input: dude it's suppose to be a number...")
             return None
-        elif int(num) >= max_num:
+        elif num >= max_num or num < 0:
+            print("Invalid number")
             return None
         self.selected_window = self.windows[num]
         print(f"You have selected window: {self.selected_window.window_text()}")
+    
+    def set_always_on_top(self):
+        if self.selected_window is None:
+            print("Dude select a window")
+            return
+
+        hwnd = self.selected_window.handle
+        win32gui.SetWindowPos(hwnd, win32con.HWND_TOPMOST, 0, 0, 0, 0, win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
+        print(f"{self.selected_window.window_text()} is now always on the top!!!!!")
+
+    def unset_always_on_top(self):
+        if self.selected_window is None:
+            print("Dude select a window")
+            return
+        
+        hwnd = self.selected_window.handle
+        win32gui.SetWindowPos(hwnd, win32con.HWND_NOTOPMOST, 0, 0, 0, 0, win32con.SWP_NOMOVE | win32con.SWP_NOSIZE)
+        print(f"{self.selected_window.window_text()} is now deselected from always on top!!!!!")
