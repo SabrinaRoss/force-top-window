@@ -10,5 +10,5 @@ Allows the user to do activities on one window, like having a small window in th
 <br><br>
 <b>Install Steps: </b>
 
-pip install -r requirenments.txt
+pip install -r requirenments.txt <br>
 python main.py
